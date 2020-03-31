@@ -18,6 +18,7 @@ variable "memory_size" {
 variable "environment_variables" {
   type = "map"
   description = "Environment variables used by lambda function"
+  default = {}
 }
 
 variable "schedule_expression" {
@@ -29,7 +30,7 @@ variable "schedule_expression" {
 variable "backend_s3_bucket_name" {
   type = string
   description = "Backend s3 bucket name"
-  default = "terraform-states"
+  default = "jian-personal-terraform-states"
 }
 
 variable "backend_s3_key" {
