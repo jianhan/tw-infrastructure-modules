@@ -8,6 +8,13 @@
 
 terraform {
   required_version = ">= 0.12"
+  backend "s3" {
+    bucket         = var.backend_s3_bucket_name
+    key            = var.backend_s3_key
+    region         = var.backend_s3_region
+    dynamodb_table = var.backend_s3_dynamodb_table
+    encrypt        = true
+  }
 }
 
 # ------------------------------------------------------------------------------
@@ -27,9 +34,9 @@ module "lambda_iam" {
 # ------------------------------------------------------------------------------
 # LAMBDA FUNCTION RESOURCE
 # ------------------------------------------------------------------------------
-resource "aws_lambda_function" "tw_function" {
+resource "aws_lambda_function" "tw_syncer_function" {
   filename      = "lambda.zip"
-  function_name = "tw-lambda"
+  function_name = "tw-syncer-lambda"
   role          = module.lambda_iam.iam_role_arn
   handler       = "handler"
   source_code_hash = filebase64sha256("lambda.zip")
@@ -44,7 +51,7 @@ resource "aws_lambda_function" "tw_function" {
 # ------------------------------------------------------------------------------
 # Define cloud watch event rule.
 # ------------------------------------------------------------------------------
-resource "aws_cloudwatch_event_rule" "tw_event_rule" {
+resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule" {
   name = "cloudwatch_schedule"
   description = "Schedule for invoking"
   schedule_expression = var.schedule_expression
@@ -53,10 +60,10 @@ resource "aws_cloudwatch_event_rule" "tw_event_rule" {
 # ------------------------------------------------------------------------------
 # Define cloud watch event target.
 # ------------------------------------------------------------------------------
-resource "aws_cloudwatch_event_target" "tw_event_target" {
-  rule = aws_cloudwatch_event_rule.tw_event_rule.name
+resource "aws_cloudwatch_event_target" "tw_syncer_event_target" {
+  rule = aws_cloudwatch_event_rule.tw_syncer_event_rule.name
   target_id = "tw_cloudwatch_schedule"
-  arn = aws_lambda_function.tw_function.arn
+  arn = aws_lambda_function.tw_syncer_function.arn
   input = <<DOC
   {
     "path": "./users/index",
@@ -67,4 +74,15 @@ resource "aws_cloudwatch_event_target" "tw_event_target" {
     }
   }
   DOC
+}
+
+# ------------------------------------------------------------------------------
+# Setup lambda permissions with cloud watch.
+# ------------------------------------------------------------------------------
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda" {
+  statement_id = "AllowExecutionFromCloudWatch"
+  action = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.tw_syncer_function.function_name
+  principal = "events.amazonaws.com"
+  source_arn = aws_cloudwatch_event_rule.tw_syncer_event_rule.arn
 }
