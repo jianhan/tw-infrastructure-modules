@@ -1,0 +1,3 @@
+[submodule "lambdas/tw/tw-syncer"]
+	path = lambdas/tw/tw-syncer
+	url = git@github.com:jianhan/tw-syncer.git
