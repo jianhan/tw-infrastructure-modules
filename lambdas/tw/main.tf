@@ -27,7 +27,7 @@ module "lambda_iam" {
 # ------------------------------------------------------------------------------
 # LAMBDA FUNCTION RESOURCE
 # ------------------------------------------------------------------------------
-resource "aws_lambda_function" "lambda_function" {
+resource "aws_lambda_function" "tw_function" {
   filename      = "lambda.zip"
   function_name = "tw-lambda"
   role          = module.lambda_iam.iam_role_arn
@@ -44,19 +44,19 @@ resource "aws_lambda_function" "lambda_function" {
 # ------------------------------------------------------------------------------
 # Define cloud watch event rule.
 # ------------------------------------------------------------------------------
-resource "aws_cloudwatch_event_rule" "cloudwatch_schedule" {
+resource "aws_cloudwatch_event_rule" "tw_event_rule" {
   name = "cloudwatch_schedule"
   description = "Schedule for invoking"
-  schedule_expression = "rate(6 hours)"
+  schedule_expression = var.schedule_expression
 }
 
 # ------------------------------------------------------------------------------
 # Define cloud watch event target.
 # ------------------------------------------------------------------------------
-resource "aws_cloudwatch_event_target" "cloudwatch_schedule" {
-  rule = aws_cloudwatch_event_rule.cloudwatch_schedule.name
+resource "aws_cloudwatch_event_target" "tw_event_target" {
+  rule = aws_cloudwatch_event_rule.tw_event_rule.name
   target_id = "tw_cloudwatch_schedule"
-  arn = aws_lambda_function.lambda_function.arn
+  arn = aws_lambda_function.tw_function.arn
   input = <<DOC
   {
     "path": "./users/index",
