@@ -1,1 +1,12 @@
-lambda.zip
+.terraform
+terraform.tfstate
+.terraform.tfstate.lock.info
+terraform.tfstate.backup
+dist
+node_modules
+*.zip
+logs
+coverage
+.env
+terraform.tfvars
+lint-result.*
