@@ -35,7 +35,8 @@ module "lambda_iam" {
 # LAMBDA FUNCTION RESOURCE
 # ------------------------------------------------------------------------------
 resource "aws_lambda_function" "tw_syncer_function" {
-  filename      = "lambda.zip"
+  s3_bucket = var.lambda_function_s3_bucket
+  s3_key = var.lambda_function_s3_key
   function_name = "tw-syncer-lambda"
   role          = module.lambda_iam.iam_role_arn
   handler       = "handler"
