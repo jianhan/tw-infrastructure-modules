@@ -31,6 +31,11 @@ module "lambda_iam" {
   source = "../iam"
 }
 
+data "aws_s3_bucket_object" "zip_hash" {
+  bucket = var.lambda_function_s3_bucket
+  key    = var.lambda_function_s3_key
+}
+
 # ------------------------------------------------------------------------------
 # LAMBDA FUNCTION RESOURCE
 # ------------------------------------------------------------------------------
@@ -40,7 +45,8 @@ resource "aws_lambda_function" "tw_syncer_function" {
   function_name = "tw-syncer-lambda"
   role          = module.lambda_iam.iam_role_arn
   handler       = "handler"
-  source_code_hash = filebase64sha256(var.lambda_function_s3_key)
+//  source_code_hash = filebase64sha256(var.lambda_function_s3_key)
+  source_code_hash =data.aws_s3_bucket_object.zip_hash.body
   runtime = "nodejs12.x"
   timeout = var.timeout
   memory_size = var.memory_size
