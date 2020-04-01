@@ -40,7 +40,7 @@ resource "aws_lambda_function" "tw_syncer_function" {
   function_name = "tw-syncer-lambda"
   role          = module.lambda_iam.iam_role_arn
   handler       = "handler"
-  source_code_hash = filebase64sha256("lambda.zip")
+  source_code_hash = filebase64sha256(var.lambda_function_s3_key)
   runtime = "nodejs12.x"
   timeout = var.timeout
   memory_size = var.memory_size
