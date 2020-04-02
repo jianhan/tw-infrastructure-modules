@@ -65,9 +65,9 @@ resource "aws_cloudwatch_event_target" "tw_syncer_event_target" {
   arn = aws_lambda_function.tw_syncer_function.arn
   input = <<DOC
   {
-    "path": "./users/index",
+    "path": "users/lookup",
     "body": {
-      "screenNames": [
+      "screen_name": [
         "chenqiushi404", "realDonaldTrump", "AlboMP", "KatieAllenMP", "karenandrewsmp", "kevinandrewsmp", "bridgetarcher", "AdamBandt", "SharonBirdMP", "BroadbentMP", "ScottBuchholzMP", "Tony_Burke"
       ]
     }
