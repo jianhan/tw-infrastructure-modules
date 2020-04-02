@@ -5,16 +5,8 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # REQUIRE A SPECIFIC TERRAFORM VERSION OR HIGHER
 # ----------------------------------------------------------------------------------------------------------------------
-
 terraform {
   required_version = ">= 0.12"
-  backend "s3" {
-    bucket         = var.backend_s3_bucket_name
-    key            = var.backend_s3_key
-    region         = var.backend_s3_region
-    dynamodb_table = var.backend_s3_dynamodb_table
-    encrypt        = true
-  }
 }
 
 # ------------------------------------------------------------------------------
@@ -46,7 +38,7 @@ resource "aws_lambda_function" "tw_syncer_function" {
   role          = module.lambda_iam.iam_role_arn
   handler       = "index.handler"
 //  source_code_hash = filebase64sha256(var.lambda_function_s3_key)
-  source_code_hash =data.aws_s3_bucket_object.zip_hash.body
+  source_code_hash = data.aws_s3_bucket_object.zip_hash.body
   runtime = "nodejs12.x"
   timeout = var.timeout
   memory_size = var.memory_size
