@@ -95,7 +95,6 @@ resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule_user_timelines" {
 resource "aws_cloudwatch_event_target" "tw_syncer_event_target_user_timelines" {
   for_each = {for timeline in var.timelines: timeline.screen_name => timeline}
   rule = aws_cloudwatch_event_rule.tw_syncer_event_rule_user_timelines[each.key].name
-  target_id = "tw_cloudwatch_schedule_${each.key}}"
   arn = aws_lambda_function.tw_syncer_function.arn
   input = <<DOC
   {
