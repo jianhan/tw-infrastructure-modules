@@ -108,7 +108,6 @@ resource "aws_cloudwatch_event_target" "tw_syncer_event_target_user_timelines" {
 
 resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_user_timelines" {
   for_each = {for timeline in var.timelines: timeline.screen_name => timeline}
-  statement_id = "AllowExecutionFromCloudWatch"
   action = "lambda:InvokeFunction"
   function_name = aws_lambda_function.tw_syncer_function.function_name
   principal = "events.amazonaws.com"
