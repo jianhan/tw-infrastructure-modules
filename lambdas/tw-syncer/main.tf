@@ -87,28 +87,28 @@ resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda" {
 }
 
 resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule_user_timelines" {
-  for_each = toset(var.timeline_users)
-  name = each.value.screen_name
+  for_each = {for timeline in var.timelines: timeline.screen_name => timeline}
+  name = each.key
   schedule_expression = each.value.schedule_expression
 }
 
 resource "aws_cloudwatch_event_target" "tw_syncer_event_target_user_timelines" {
-  for_each = toset(var.timeline_users)
+  for_each = {for timeline in var.timelines: timeline.screen_name => timeline}
   rule = aws_cloudwatch_event_rule.tw_syncer_event_rule_user_timelines[each.key].name
-  target_id = "tw_cloudwatch_schedule_${each.value.key}}"
+  target_id = "tw_cloudwatch_schedule_${each.key}}"
   arn = aws_lambda_function.tw_syncer_function.arn
   input = <<DOC
   {
     "path": "users/lookup",
     "body": {
-      "screen_name": "${each.value.screen_name}"
+      "screen_name": "${each.key}"
     }
   }
   DOC
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_user_timelines" {
-  for_each = toset(var.timeline_users)
+  for_each = {for timeline in var.timelines: timeline.screen_name => timeline}
   statement_id = "AllowExecutionFromCloudWatch"
   action = "lambda:InvokeFunction"
   function_name = aws_lambda_function.tw_syncer_function.function_name

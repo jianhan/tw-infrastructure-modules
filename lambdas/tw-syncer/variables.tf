@@ -37,7 +37,7 @@ variable "lambda_function_s3_key" {
   description = "The S3 key of an object containing the function's deployment package."
 }
 
-variable "timeline_users" {
+variable "timelines" {
   type = list(object({
     screen_name = string
     schedule_expression = string
