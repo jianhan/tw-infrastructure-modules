@@ -36,3 +36,21 @@ variable "lambda_function_s3_key" {
   type = string
   description = "The S3 key of an object containing the function's deployment package."
 }
+
+variable "timeline_users" {
+  type = list(object({
+    screen_name = string
+    schedule_expression = string
+  }))
+
+  default = [
+    {
+      screen_name = "realDonaldTrump"
+      schedule_expression = "cron(0 10 * * ? *)"
+    },
+    {
+      screen_name = "BarackObama"
+      schedule_expression = "cron(10 10 * * ? *)"
+    }
+  ]
+}

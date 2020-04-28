@@ -85,3 +85,33 @@ resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda" {
   principal = "events.amazonaws.com"
   source_arn = aws_cloudwatch_event_rule.tw_syncer_event_rule.arn
 }
+
+resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule_user_timelines" {
+  for_each = toset(var.timeline_users)
+  name = each.value.screen_name
+  schedule_expression = each.value.schedule_expression
+}
+
+resource "aws_cloudwatch_event_target" "tw_syncer_event_target_user_timelines" {
+  for_each = toset(var.timeline_users)
+  rule = aws_cloudwatch_event_rule.tw_syncer_event_rule_user_timelines[each.key].name
+  target_id = "tw_cloudwatch_schedule_${each.value.key}}"
+  arn = aws_lambda_function.tw_syncer_function.arn
+  input = <<DOC
+  {
+    "path": "users/lookup",
+    "body": {
+      "screen_name": "${each.value.screen_name}"
+    }
+  }
+  DOC
+}
+
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_user_timelines" {
+  for_each = toset(var.timeline_users)
+  statement_id = "AllowExecutionFromCloudWatch"
+  action = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.tw_syncer_function.function_name
+  principal = "events.amazonaws.com"
+  source_arn = aws_cloudwatch_event_rule.tw_syncer_event_rule_user_timelines[each.key].arn
+}
