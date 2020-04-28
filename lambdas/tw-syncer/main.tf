@@ -98,7 +98,7 @@ resource "aws_cloudwatch_event_target" "tw_syncer_event_target_user_timelines" {
   arn = aws_lambda_function.tw_syncer_function.arn
   input = <<DOC
   {
-    "path": "users/lookup",
+    "path": "tweets/timeline",
     "body": {
       "screen_name": "${each.key}"
     }

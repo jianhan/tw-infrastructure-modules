@@ -46,7 +46,7 @@ variable "timelines" {
   default = [
     {
       screen_name = "realDonaldTrump"
-      schedule_expression = "cron(0 10 * * ? *)"
+      schedule_expression = "cron(40 13 * * ? *)"
     },
     {
       screen_name = "BarackObama"
