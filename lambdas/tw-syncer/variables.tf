@@ -45,12 +45,160 @@ variable "timelines" {
 
   default = [
     {
-      screen_name = "realDonaldTrump"
-      schedule_expression = "cron(40 13 * * ? *)"
+      screen_name = "BarackObama"
+      schedule_expression = "cron(0 0 * * ? *)"
     },
     {
-      screen_name = "BarackObama"
-      schedule_expression = "cron(10 10 * * ? *)"
+      screen_name = "realDonaldTrump"
+      schedule_expression = "cron(5 0 * * ? *)"
+    },
+    {
+      screen_name = "Schwarzenegger"
+      schedule_expression = "cron(10 0 * * ? *)"
+    },
+    {
+      screen_name = "SenSanders"
+      schedule_expression = "cron(15 0 * * ? *)"
+    },
+    {
+      screen_name = "BillClinton"
+      schedule_expression = "cron(20 0 * * ? *)"
+    },
+    {
+      screen_name = "SenWarren"
+      schedule_expression = "cron(25 0 * * ? *)"
+    },
+    {
+      screen_name = "SecretaryCarson"
+      schedule_expression = "cron(30 0 * * ? *)"
+    },
+    {
+      screen_name = "SpeakerPelosi"
+      schedule_expression = "cron(35 0 * * ? *)"
+    },
+    {
+      screen_name = "GovMikeHuckabee"
+      schedule_expression = "cron(40 0 * * ? *)"
+    },
+    {
+      screen_name = "tedcruz"
+      schedule_expression = "cron(45 0 * * ? *)"
+    },
+    {
+      screen_name = "JohnKerry"
+      schedule_expression = "cron(50 0 * * ? *)"
+    },
+    {
+      screen_name = "KamalaHarris"
+      schedule_expression = "cron(55 0 * * ? *)"
+    },
+    {
+      screen_name = "GabbyGiffords"
+      schedule_expression = "cron(0 1 * * ? *)"
+    },
+    {
+      screen_name = "Mike_Pence"
+      schedule_expression = "cron(5 1 * * ? *)"
+    },
+    {
+      screen_name = "RepAdamSchiff"
+      schedule_expression = "cron(10 1 * * ? *)"
+    },
+    {
+      screen_name = "alfranken"
+      schedule_expression = "cron(15 1 * * ? *)"
+    },
+    {
+      screen_name = "SenSchumer"
+      schedule_expression = "cron(20 1 * * ? *)"
+    },
+    {
+      screen_name = "newtgingrich"
+      schedule_expression = "cron(25 1 * * ? *)"
+    },
+    {
+      screen_name = "AndrewYang"
+      schedule_expression = "cron(30 1 * * ? *)"
+    },
+    {
+      screen_name = "PeteButtigieg"
+      schedule_expression = "cron(35 1 * * ? *)"
+    },
+    {
+      screen_name = "CoryBooker"
+      schedule_expression = "cron(40 1 * * ? *)"
+    },
+    {
+      screen_name = "NikkiHaley"
+      schedule_expression = "cron(45 1 * * ? *)"
+    },
+    {
+      screen_name = "SenatorDole"
+      schedule_expression = "cron(50 1 * * ? *)"
+    },
+    {
+      screen_name = "SarahPalinUSA"
+      schedule_expression = "cron(55 1 * * ? *)"
+    },
+    {
+      screen_name = "RonPaul"
+      schedule_expression = "cron(0 2 * * ? *)"
+    },
+    {
+      screen_name = "TulsiGabbard"
+      schedule_expression = "cron(5 2 * * ? *)"
+    },
+    {
+      screen_name = "TGowdySC"
+      schedule_expression = "cron(10 2 * * ? *)"
+    },
+    {
+      screen_name = "JulianCastro"
+      schedule_expression = "cron(15 2 * * ? *)"
+    },
+    {
+      screen_name = "SenFeinstein"
+      schedule_expression = "cron(20 2 * * ? *)"
+    },
+    {
+      screen_name = "LindseyGrahamSC"
+      schedule_expression = "cron(25 2 * * ? *)"
+    },
+    {
+      screen_name = "JerryBrownGov"
+      schedule_expression = "cron(30 2 * * ? *)"
+    },
+    {
+      screen_name = "SenGillibrand"
+      schedule_expression = "cron(35 2 * * ? *)"
+    },
+    {
+      screen_name = "senatemajldr"
+      schedule_expression = "cron(40 2 * * ? *)"
+    },
+    {
+      screen_name = "SenDuckworth"
+      schedule_expression = "cron(45 2 * * ? *)"
+    },
+    {
+      screen_name = "AllenWest"
+      schedule_expression = "cron(50 2 * * ? *)"
+    },
+    {
+      screen_name = "SteveScalise"
+      schedule_expression = "cron(55 2 * * ? *)"
+    },
+    {
+      screen_name = "RBReich"
+      schedule_expression = "cron(0 3 * * ? *)"
+    },
+    {
+      screen_name = "donnabrazile"
+      schedule_expression = "cron(5 3 * * ? *)"
+    },
+    {
+      screen_name = "timkaine"
+      schedule_expression = "cron(10 3 * * ? *)"
     }
   ]
 }
