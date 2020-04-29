@@ -199,6 +199,22 @@ variable "timelines" {
     {
       screen_name = "timkaine"
       schedule_expression = "cron(10 3 * * ? *)"
+    },
+    {
+      screen_name = "JoeBiden"
+      schedule_expression = "cron(15 3 * * ? *)"
+    },
+    {
+      screen_name = "ewarren"
+      schedule_expression = "cron(20 3 * * ? *)"
+    },
+    {
+      screen_name = "WhiteHouse"
+      schedule_expression = "cron(25 3 * * ? *)"
+    },
+    {
+      screen_name = "HillaryClinton"
+      schedule_expression = "cron(30 3 * * ? *)"
     }
   ]
 }
