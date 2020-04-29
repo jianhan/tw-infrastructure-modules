@@ -215,6 +215,46 @@ variable "timelines" {
     {
       screen_name = "HillaryClinton"
       schedule_expression = "cron(30 3 * * ? *)"
+    },
+    {
+      screen_name = "MrKRudd"
+      schedule_expression = "cron(35 3 * * ? *)"
+    },
+    {
+      screen_name = "TurnbullMalcolm"
+      schedule_expression = "cron(40 3 * * ? *)"
+    },
+    {
+      screen_name = "JuliaGillard"
+      schedule_expression = "cron(45 3 * * ? *)"
+    },
+    {
+      screen_name = "HonTonyAbbott"
+      schedule_expression = "cron(50 3 * * ? *)"
+    },
+    {
+      screen_name = "ScottMorrisonMP"
+      schedule_expression = "cron(55 3 * * ? *)"
+    },
+    {
+      screen_name = "billshortenmp"
+      schedule_expression = "cron(0 4 * * ? *)"
+    },
+    {
+      screen_name = "DarrynLyons"
+      schedule_expression = "cron(5 4 * * ? *)"
+    },
+    {
+      screen_name = "HonJulieBishop"
+      schedule_expression = "cron(10 4 * * ? *)"
+    },
+    {
+      screen_name = "SenatorWong"
+      schedule_expression = "cron(15 4 * * ? *)"
+    },
+    {
+      screen_name = "tanya_plibersek"
+      schedule_expression = "cron(20 4 * * ? *)"
     }
   ]
 }
