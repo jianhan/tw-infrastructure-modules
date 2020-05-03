@@ -64,7 +64,7 @@ resource "aws_cloudwatch_event_target" "tw_syncer_event_target_trends_available"
   arn = aws_lambda_function.tw_syncer_function.arn
   input = <<DOC
   {
-    "path": "trends/available",
+    "path": "trends/available"
   }
   DOC
 }
@@ -73,7 +73,6 @@ resource "aws_cloudwatch_event_target" "tw_syncer_event_target_trends_available"
 # Setup lambda permissions with cloud watch allow trends available cloud watch event to call lambda.
 # ------------------------------------------------------------------------------
 resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_trends_available" {
-  statement_id = "AllowExecutionFromCloudWatch"
   action = "lambda:InvokeFunction"
   function_name = aws_lambda_function.tw_syncer_function.function_name
   principal = "events.amazonaws.com"
