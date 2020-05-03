@@ -27,6 +27,12 @@ variable "schedule_expression" {
   default = "rate(6 hours)"
 }
 
+variable "trends_place_schedule_expression" {
+  type = string
+  description = "Cloud watch event schedule expression for trends place"
+  default = "rate(7 days)"
+}
+
 variable "lambda_function_s3_bucket" {
   type = string
   description = "The S3 bucket location containing the function's deployment package"
