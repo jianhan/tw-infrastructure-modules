@@ -47,37 +47,37 @@ resource "aws_lambda_function" "tw_syncer_function" {
   }
 }
 # ------------------------------------------------------------------------------
-# Define cloud watch event rule for trends place.
+# Define cloud watch event rule for trends available.
 # ------------------------------------------------------------------------------
-resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule_trends_place" {
+resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule_trends_available" {
   name = "cloudwatch_schedule"
-  description = "Schedule for invoking trends place"
-  schedule_expression = var.trends_place_schedule_expression
+  description = "Schedule for invoking trends available"
+  schedule_expression = var.trends_available_schedule_expression
 }
 
 # ------------------------------------------------------------------------------
-# Define cloud watch event target for trends place.
+# Define cloud watch event target for trends available.
 # ------------------------------------------------------------------------------
-resource "aws_cloudwatch_event_target" "tw_syncer_event_target_trends_place" {
-  rule = aws_cloudwatch_event_rule.tw_syncer_event_rule_trends_place.name
-  target_id = "tw_cloudwatch_schedule_trends_place"
+resource "aws_cloudwatch_event_target" "tw_syncer_event_target_trends_available" {
+  rule = aws_cloudwatch_event_rule.tw_syncer_event_rule_trends_available.name
+  target_id = "tw_cloudwatch_schedule_trends_available"
   arn = aws_lambda_function.tw_syncer_function.arn
   input = <<DOC
   {
-    "path": "trends/place",
+    "path": "trends/available",
   }
   DOC
 }
 
 # ------------------------------------------------------------------------------
-# Setup lambda permissions with cloud watch allow trends place cloud watch event to call lambda.
+# Setup lambda permissions with cloud watch allow trends available cloud watch event to call lambda.
 # ------------------------------------------------------------------------------
-resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_trends_place" {
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_trends_available" {
   statement_id = "AllowExecutionFromCloudWatch"
   action = "lambda:InvokeFunction"
   function_name = aws_lambda_function.tw_syncer_function.function_name
   principal = "events.amazonaws.com"
-  source_arn = aws_cloudwatch_event_rule.tw_syncer_event_rule_trends_place.arn
+  source_arn = aws_cloudwatch_event_rule.tw_syncer_event_rule_trends_available.arn
 }
 
 # ------------------------------------------------------------------------------

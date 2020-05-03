@@ -27,9 +27,9 @@ variable "schedule_expression" {
   default = "rate(6 hours)"
 }
 
-variable "trends_place_schedule_expression" {
+variable "trends_available_schedule_expression" {
   type = string
-  description = "Cloud watch event schedule expression for trends place"
+  description = "Cloud watch event schedule expression for trends available"
   default = "rate(7 days)"
 }
 
