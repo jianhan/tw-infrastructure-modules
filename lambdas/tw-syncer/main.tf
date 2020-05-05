@@ -169,12 +169,18 @@ resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda" {
   source_arn = aws_cloudwatch_event_rule.tw_syncer_event_rule.arn
 }
 
+# ------------------------------------------------------------------------------
+# Setup cloudwatch event rule for all timelines
+# ------------------------------------------------------------------------------
 resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule_user_timelines" {
   for_each = {for timeline in var.timelines: timeline.screen_name => timeline}
   name = each.key
   schedule_expression = each.value.schedule_expression
 }
 
+# ------------------------------------------------------------------------------
+# Setup cloudwatch event target for user timelines
+# ------------------------------------------------------------------------------
 resource "aws_cloudwatch_event_target" "tw_syncer_event_target_user_timelines" {
   for_each = {for timeline in var.timelines: timeline.screen_name => timeline}
   rule = aws_cloudwatch_event_rule.tw_syncer_event_rule_user_timelines[each.key].name
@@ -189,10 +195,52 @@ resource "aws_cloudwatch_event_target" "tw_syncer_event_target_user_timelines" {
   DOC
 }
 
+# ------------------------------------------------------------------------------
+# Setup permissions for timelines
+# ------------------------------------------------------------------------------
 resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_user_timelines" {
   for_each = {for timeline in var.timelines: timeline.screen_name => timeline}
   action = "lambda:InvokeFunction"
   function_name = aws_lambda_function.tw_syncer_function.function_name
   principal = "events.amazonaws.com"
   source_arn = aws_cloudwatch_event_rule.tw_syncer_event_rule_user_timelines[each.key].arn
+}
+
+
+
+# ------------------------------------------------------------------------------
+# Setup cloudwatch event rule for trends places
+# ------------------------------------------------------------------------------
+resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule_trends_places" {
+  for_each = {for place in var.places: place.id => place}
+  name = each.key
+  schedule_expression = each.value.schedule_expression
+}
+
+# ------------------------------------------------------------------------------
+# Setup cloudwatch event target for user timelines
+# ------------------------------------------------------------------------------
+resource "aws_cloudwatch_event_target" "tw_syncer_event_target_trends_places" {
+  for_each = {for place in var.places: place.id => place}
+  rule = aws_cloudwatch_event_rule.tw_syncer_event_rule_trends_places[each.key].name
+  arn = aws_lambda_function.tw_syncer_function.arn
+  input = <<DOC
+  {
+    "path": "trends/place",
+    "body": {
+      "id": "${each.key}"
+    }
+  }
+  DOC
+}
+
+# ------------------------------------------------------------------------------
+# Setup permissions for trends places
+# ------------------------------------------------------------------------------
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_trends_places" {
+  for_each = {for place in var.places: place.id => place}
+  action = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.tw_syncer_function.function_name
+  principal = "events.amazonaws.com"
+  source_arn = aws_cloudwatch_event_rule.tw_syncer_event_rule_trends_places[each.key].arn
 }

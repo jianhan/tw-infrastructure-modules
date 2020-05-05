@@ -264,3 +264,102 @@ variable "timelines" {
     }
   ]
 }
+
+variable "places" {
+  type = list(object({
+    id = number
+    schedule_expression = string
+  }))
+
+  default = [
+    {
+      woeid = 1
+      schedule_expression = "cron(1 0 * * ? *)"
+    },
+    {
+      // ca : Ottawa
+      woeid = 2972
+      schedule_expression = "cron(2 0 * * ? *)"
+    },
+    {
+      // ca: Quebec
+      woeid = 3369
+      schedule_expression = "cron(3 0 * * ? *)"
+    },
+    {
+      // ca: Montreal
+      woeid = 3444
+      schedule_expression = "cron(4 0 * * ? *)"
+    },
+    {
+      // ca: Toronto
+      woeid = 3534
+      schedule_expression = "cron(5 0 * * ? *)"
+    },
+    {
+      // ca: Edmonton
+      woeid = 4118
+      schedule_expression = "cron(6 0 * * ? *)"
+    },
+    {
+      // ca: Calgary
+      woeid = 8676
+      schedule_expression = "cron(7 0 * * ? *)"
+    },
+    {
+      // ca: Vancouver
+      woeid = 8775
+      schedule_expression = "cron(8 0 * * ? *)"
+    },
+    {
+      // ca: Birmingham
+      woeid = 9807
+      schedule_expression = "cron(9 0 * * ? *)"
+    },
+    {
+      // gb: Liverpool
+      woeid = 26062
+      schedule_expression = "cron(10 0 * * ? *)"
+    },
+    {
+      // gb: Manchester
+      woeid = 26734
+      schedule_expression = "cron(11 0 * * ? *)"
+    },
+    {
+      // gb: Newcastle
+      woeid = 28869
+      schedule_expression = "cron(12 0 * * ? *)"
+    },
+    {
+      // au: Adelaide
+      woeid = 1098081
+      schedule_expression = "cron(13 0 * * ? *)"
+    },
+    {
+      // au: brisbane
+      woeid = 1099805
+      schedule_expression = "cron(14 0 * * ? *)"
+    },
+    {
+      // au: Canberra
+      woeid = 1100661
+      schedule_expression = "cron(15 0 * * ? *)"
+    },
+    {
+      // au: Darwin
+      woeid = 1100968
+      schedule_expression = "cron(16 0 * * ? *)"
+    },
+    {
+      // au: Melbourne
+      woeid = 1101597
+      schedule_expression = "cron(17 0 * * ? *)"
+    },
+    {
+      // au: Sydney
+      woeid = 1103816
+      schedule_expression = "cron(18 0 * * ? *)"
+    }
+  ]
+}
