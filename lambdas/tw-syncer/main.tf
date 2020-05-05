@@ -212,7 +212,7 @@ resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_user_timelines
 # Setup cloudwatch event rule for trends places
 # ------------------------------------------------------------------------------
 resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule_trends_places" {
-  for_each = {for place in var.places: place.id => place}
+  for_each = {for place in var.places: place.woeid => place}
   name = each.key
   schedule_expression = each.value.schedule_expression
 }
@@ -221,7 +221,7 @@ resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule_trends_places" {
 # Setup cloudwatch event target for user timelines
 # ------------------------------------------------------------------------------
 resource "aws_cloudwatch_event_target" "tw_syncer_event_target_trends_places" {
-  for_each = {for place in var.places: place.id => place}
+  for_each = {for place in var.places: place.woeid => place}
   rule = aws_cloudwatch_event_rule.tw_syncer_event_rule_trends_places[each.key].name
   arn = aws_lambda_function.tw_syncer_function.arn
   input = <<DOC
@@ -238,7 +238,7 @@ resource "aws_cloudwatch_event_target" "tw_syncer_event_target_trends_places" {
 # Setup permissions for trends places
 # ------------------------------------------------------------------------------
 resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_trends_places" {
-  for_each = {for place in var.places: place.id => place}
+  for_each = {for place in var.places: place.woeid => place}
   action = "lambda:InvokeFunction"
   function_name = aws_lambda_function.tw_syncer_function.function_name
   principal = "events.amazonaws.com"
