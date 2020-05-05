@@ -267,7 +267,7 @@ variable "timelines" {
 
 variable "places" {
   type = list(object({
-    id = number
+    woeid = number
     schedule_expression = string
   }))
 
