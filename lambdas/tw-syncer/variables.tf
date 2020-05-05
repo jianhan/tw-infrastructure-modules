@@ -277,44 +277,9 @@ variable "places" {
       schedule_expression = "cron(1 0 * * ? *)"
     },
     {
-      // ca : Ottawa
-      woeid = 2972
-      schedule_expression = "cron(2 0 * * ? *)"
-    },
-    {
-      // ca: Quebec
-      woeid = 3369
-      schedule_expression = "cron(3 0 * * ? *)"
-    },
-    {
-      // ca: Montreal
-      woeid = 3444
-      schedule_expression = "cron(4 0 * * ? *)"
-    },
-    {
-      // ca: Toronto
-      woeid = 3534
-      schedule_expression = "cron(5 0 * * ? *)"
-    },
-    {
-      // ca: Edmonton
-      woeid = 4118
-      schedule_expression = "cron(6 0 * * ? *)"
-    },
-    {
-      // ca: Calgary
-      woeid = 8676
-      schedule_expression = "cron(7 0 * * ? *)"
-    },
-    {
       // ca: Vancouver
       woeid = 8775
       schedule_expression = "cron(8 0 * * ? *)"
-    },
-    {
-      // ca: Birmingham
-      woeid = 9807
-      schedule_expression = "cron(9 0 * * ? *)"
     },
     {
       // gb: Liverpool
