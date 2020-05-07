@@ -46,6 +46,43 @@ resource "aws_lambda_function" "tw_syncer_function" {
     variables = var.environment_variables
   }
 }
+
+# ------------------------------------------------------------------------------
+# Define cloud watch event rule for places trend places.
+# ------------------------------------------------------------------------------
+resource "aws_cloudwatch_event_rule" "tw_syncer_event_rule_trends_places" {
+  name = "cloudwatch_schedule"
+  description = "Schedule for invoking trends places"
+  schedule_expression = var.trends_places_schedule_expression
+}
+
+# ------------------------------------------------------------------------------
+# Define cloud watch event target for trend places.
+# ------------------------------------------------------------------------------
+resource "aws_cloudwatch_event_target" "tw_syncer_event_target_trends_places" {
+  rule = aws_cloudwatch_event_rule.tw_syncer_event_rule_trends_places.name
+  arn = aws_lambda_function.tw_syncer_function.arn
+  input = <<DOC
+  {
+    "path": "trends/places",
+    "body": {
+      "coutryCodes": ["US", "AU", "GB"]
+    },
+  }
+  DOC
+}
+
+# ------------------------------------------------------------------------------
+# Setup lambda permissions with cloud watch allow trends places cloud watch event to call lambda.
+# ------------------------------------------------------------------------------
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_trends_places" {
+  action = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.tw_syncer_function.function_name
+  principal = "events.amazonaws.com"
+  source_arn = aws_cloudwatch_event_rule.tw_syncer_event_rule_trends_places.arn
+}
+
+
 # ------------------------------------------------------------------------------
 # Define cloud watch event rule for trends available.
 # ------------------------------------------------------------------------------
