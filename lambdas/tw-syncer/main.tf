@@ -67,7 +67,7 @@ resource "aws_cloudwatch_event_target" "tw_syncer_event_target_trends_places" {
     "path": "trends/places",
     "body": {
       "coutryCodes": ["US", "AU", "GB"]
-    },
+    }
   }
   DOC
 }
