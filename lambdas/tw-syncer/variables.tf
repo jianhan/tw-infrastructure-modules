@@ -268,5 +268,5 @@ variable "timelines" {
 variable "trends_places_schedule_expression" {
   type = string
   description = "Cloud watch event schedule expression for trends places"
-  default = "rate(6 hours)"
+  default = "rate(24 hours)"
 }
